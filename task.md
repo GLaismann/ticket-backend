@@ -7,7 +7,7 @@ Here is your to-do list for when you get home! We are transitioning from the "fa
 - [ ] **Task 1: Read (GET)**
   - Update `getAllTickets` in `ticketsController.js`.
   - Use the `servicedb` connection to run a `SELECT * FROM tickets` query.
-  - Return the rows as JSON. (Hint: look up `db.all()` for SQLite in Node).
+  -  sReturn the rows as JSON. (Hint: look up `db.all()` for SQLite in Node).
 
 - [ ] **Task 2: Create (POST)**
   - Update `postNewTicket` in `ticketsController.js`.

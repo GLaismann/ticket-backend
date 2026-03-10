@@ -1,7 +1,7 @@
 
 const express = require('express')
 const app = express()
-const ticketsRoutes = require('./routes/ticketsRoutes');
+// const ticketsRoutes = require('./routes/ticketsRoutes');
 const port = 3000
 
 // Tradutor do express para json

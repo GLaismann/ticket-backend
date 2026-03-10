@@ -1,16 +1,10 @@
 const servicedb = require('../config/database')
-// Padrão Tickets
-const tickets = [
-    {
-        id: 1,
-        title: "Printer broken",
-        status: "open"
-    }
-]
+
 
 const getAllTickets = (req, res) => {
     try {
-        res.json(tickets);
+       const allTickets = servicedb.fetchAll(db, "SELECT * FROM tickets");
+       res.send(allTickets);
     } catch (e) {
         res.send(e);
     }
@@ -21,14 +15,9 @@ const postNewTicket = (req, res) => {
     const newTicketTitle = req.body.title;
     const newTicketStatus = req.body.status;
 
-    const newTicket = {
-        id: tickets.length + 1,
-        title: newTicketTitle,
-        status: newTicketStatus,
-    }
+    servicedb.execute(db, "INSERT INTO tickets(ticket_name, ticket_status) VALUES(?, ?)", [newTicketTitle, newTicketStatus])
 
-    tickets.push(newTicket);
-    res.json(newTicket)
+    res.send("Ticket created sucessfuly: ", newTicketStatus, "\n", newTicketTitle );
 }
 
 const updateTicket = (req, res) => {
@@ -49,7 +38,7 @@ const deleteTicket = (req, res) => {
     const foundIndexTicket = tickets.findIndex(ticket => ticketId === ticket.id);
 
     if (foundIndexTicket < 0) {
-        return res.status(404).json({ error: "Ticket not found." })
+        res.status(404).json({ error: "Ticket not found." })
     }
     tickets.splice(foundIndexTicket, 1)
     res.send("Remove Ticket ID" + ticketId)
