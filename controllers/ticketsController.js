@@ -1,23 +1,24 @@
-const servicedb = require('../config/database')
+const servicedb = require('../config/database');
+const db = servicedb.db;
 
-
-const getAllTickets = (req, res) => {
+const getAllTickets = async (req, res) => {
     try {
-       const allTickets = servicedb.fetchAll(db, "SELECT * FROM tickets");
-       res.send(allTickets);
+        const allTickets = await servicedb.fetchAll(db, "SELECT * FROM tickets");
+        res.send(allTickets);
     } catch (e) {
         res.send(e);
     }
 }
 
-const postNewTicket = (req, res) => {
+const postNewTicket = async (req, res) => {
 
-    const newTicketTitle = req.body.title;
+    const newTicketName = req.body.name;
     const newTicketStatus = req.body.status;
 
-    servicedb.execute(db, "INSERT INTO tickets(ticket_name, ticket_status) VALUES(?, ?)", [newTicketTitle, newTicketStatus])
 
-    res.send("Ticket created sucessfuly: ", newTicketStatus, "\n", newTicketTitle );
+    await servicedb.execute(db, "INSERT INTO tickets(ticket_name, ticket_status) VALUES(?, ?)", [newTicketName, newTicketStatus])
+
+    res.send("Ticket created sucessfuly \n Ticket name: " + newTicketName + "\nTicket Status: " + newTicketStatus);
 }
 
 const updateTicket = (req, res) => {

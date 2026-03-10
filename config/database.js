@@ -1,4 +1,4 @@
-const sqlite3 = require('sqlite3') ;
+const sqlite3 = require('sqlite3');
 
 
 const db = new sqlite3.Database('./ticket-database.db', sqlite3.OPEN_READWRITE, (err) => {
@@ -27,22 +27,23 @@ function createDatabase() {
     console.log("Database Created Sucessfuly");
 }
 
-function createTables(newdb){
+function createTables(newdb) {
     console.log("Creating a new Table");
 
-    newdb.serialize(()=>{
+    newdb.serialize(() => {
         newdb.run(`
             CREATE TABLE IF NOT EXISTS tickets(
         ticket_id INTEGER PRIMARY KEY,
         ticket_name TEXT NOT NULL,
-        ticket_status TEXT NOT NULL
+        ticket_status TEXT NOT NULL,
         )    
         `);
         newdb.run(`
             INSERT INTO tickets(ticket_name, ticket_status)
             VALUES (?, ?)`, ['Printer broken', 'Open']);
-    });}
-    
+    });
+}
+
 
 const execute = async (db, sql, params = []) => {
     if (params && params.length > 0) {
@@ -62,17 +63,18 @@ const execute = async (db, sql, params = []) => {
 }
 
 
-const fetchAll = async(db, sql, params = []) => {
-return new Promise((resolve, reject)=>{
-    db.all(sql, params, (err, rows)=> {
-        if(err) reject(err);
-        resolve(rows);
+const fetchAll = async (db, sql, params = []) => {
+    return new Promise((resolve, reject) => {
+        db.all(sql, params, (err, rows) => {
+            if (err) reject(err);
+            resolve(rows);
+        });
     });
-});
 };
 
 module.exports = {
     fetchAll,
     execute,
+    db
 };
 
