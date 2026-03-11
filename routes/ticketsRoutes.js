@@ -15,7 +15,6 @@ router.post('/', ticketsController.postNewTicket);
 router.put('/:id', ticketsController.updateTicket)
 
 
-
 // Deleta o ticket
 router.delete('/:id', ticketsController.deleteTicket)
 

@@ -10,38 +10,45 @@ const getAllTickets = async (req, res) => {
     }
 }
 
+
 const postNewTicket = async (req, res) => {
 
-    const newTicketName = req.body.name;
-    const newTicketStatus = req.body.status;
+    const newTicketName = req.body.ticket_name;
+    const newTicketStatus = req.body.ticket_status;
 
-
-    await servicedb.execute(db, "INSERT INTO tickets(ticket_name, ticket_status) VALUES(?, ?)", [newTicketName, newTicketStatus])
+    try {
+        await servicedb.execute(db, "INSERT INTO tickets(ticket_name, ticket_status) VALUES(?, ?)", [newTicketName, newTicketStatus]);
 
     res.send("Ticket created sucessfuly \n Ticket name: " + newTicketName + "\nTicket Status: " + newTicketStatus);
+    } catch (error) {
+        res.send(error)
+    }
+    
 }
 
-const updateTicket = (req, res) => {
+const updateTicket = async(req, res) => {
+
     const ticketId = parseInt(req.params.id);
-    const foundTicket = tickets.find(ticket => ticketId === ticket.id);
 
-    if (foundTicket == undefined) {
-        return res.status(404).json({ error: "Ticket not found." })
-    }
-    foundTicket.title = req.body.title
-    foundTicket.status = req.body.status;
-
-    res.json(foundTicket)
+    const updatedTicketName = req.body.ticket_name;
+    const updatedTicketStatus = req.body.ticket_status;
+        
+    await servicedb.execute(db, "UPDATE tickets SET ticket_name = (?), ticket_status = (?) WHERE ticket_id = (?)", [updatedTicketName, updatedTicketStatus, ticketId]);
+    
+    res.send("Ticket ID: " + ticketId + " Alterado para: " +  updatedTicketName + "\n Status: " + updatedTicketStatus)
 }
 
-const deleteTicket = (req, res) => {
-    const ticketId = parseInt(req.params.id);
-    const foundIndexTicket = tickets.findIndex(ticket => ticketId === ticket.id);
+const deleteTicket = async (req, res) => {
 
-    if (foundIndexTicket < 0) {
-        res.status(404).json({ error: "Ticket not found." })
-    }
-    tickets.splice(foundIndexTicket, 1)
+    // Frontend send the ticketId
+    const ticketId = parseInt(req.params.id);
+   
+        try {
+            await servicedb.execute(db, "DELETE FROM tickets WHERE ticket_id = (?)", [ticketId]);
+        } catch (e) {
+            res.send(e);     
+        }
+    
     res.send("Remove Ticket ID" + ticketId)
 }
 

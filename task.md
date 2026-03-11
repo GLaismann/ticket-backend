@@ -14,7 +14,7 @@ Here is your to-do list for when you get home! We are transitioning from the "fa
   - Extract the title and status from `req.body`.
   - Use `servicedb.run()` to execute an `INSERT INTO tickets` query.
 
-- [ ] **Task 3: Delete (DELETE)**
+- [x] **Task 3: Delete (DELETE)**
   - Update `deleteTicket` in `ticketsController.js`.
   - Extract the ID from the URL (`req.params.id`).
   - Use `servicedb.run()` to execute a `DELETE FROM tickets WHERE ticket_id = ?` query.
