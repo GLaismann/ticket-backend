@@ -35,7 +35,7 @@ function createTables(newdb) {
             CREATE TABLE IF NOT EXISTS tickets(
         ticket_id INTEGER PRIMARY KEY,
         ticket_name TEXT NOT NULL,
-        ticket_status TEXT NOT NULL,
+        ticket_status TEXT NOT NULL
         )    
         `);
         newdb.run(`
@@ -72,10 +72,10 @@ const fetchAll = async (db, sql, params = []) => {
     });
 };
 
-const fetchOne = async(db, sql, params = []) =>{
-    return new Promise((resolve, reject) =>{
-        db.get(sql, params, (err, rows) =>{
-            if(err) reject (err);
+const fetchOne = async (db, sql, params = []) => {
+    return new Promise((resolve, reject) => {
+        db.get(sql, params, (err, rows) => {
+            if (err) reject(err);
             resolve(rows);
         });
     });

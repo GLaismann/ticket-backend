@@ -5,27 +5,34 @@ Here is your to-do list for when you get home! We are transitioning from the "fa
 ## Tasks to Complete:
 
 - [x] **Task 1: Read (GET)**
-  - Update `getAllTickets` in `ticketsController.js`.
-  - Use the `servicedb` connection to run a `SELECT * FROM tickets` query.
-  -  sReturn the rows as JSON. (Hint: look up `db.all()` for SQLite in Node).
-
 - [x] **Task 2: Create (POST)**
-  - Update `postNewTicket` in `ticketsController.js`.
-  - Extract the title and status from `req.body`.
-  - Use `servicedb.run()` to execute an `INSERT INTO tickets` query.
-
 - [x] **Task 3: Delete (DELETE)**
-  - Update `deleteTicket` in `ticketsController.js`.
-  - Extract the ID from the URL (`req.params.id`).
-  - Use `servicedb.run()` to execute a `DELETE FROM tickets WHERE ticket_id = ?` query.
-
-- [ ] **Task 4: Update (PUT)**
-  - Update `updateTicket` in `ticketsController.js`.
-  - Extract the ID from the URL, and the new data from `req.body`.
-  - Use `servicedb.run()` to execute an `UPDATE tickets SET...` query.
-
+- [x] **Task 4: Update (PUT)**
 - [x] **Task 5: The Cleanup**
-  - Once all four routes are using `servicedb`, completely delete the `const tickets = [...]` array at the top of your controller! 
-  - Test all routes using Thunder Client or PowerShell to make sure the data survives a server restart.
+
+---
+
+# Phase 2: Building a "Hireable" Portfolio API
+
+To get a job as a Junior Developer, your API needs to show that you understand real-world architectural patterns and security. 
+
+- [ ] **Task 6: Environment Variables (`dotenv`)**
+  - Install the `dotenv` package.
+  - Move your `port` number and database file name into a `.env` file so they aren't hardcoded.
+
+- [ ] **Task 7: Input Validation**
+  - When creating or updating a ticket, how do you verify the user didn't send an empty string or a number for the `ticket_name`?
+  - Goal: Manually write an `if` statement to validate data *before* hitting SQLite, and return a `400 Bad Request` if it fails.
+
+- [ ] **Task 8: Centralized Error Handling Middleware**
+  - Right now, every route has a `try/catch`. 
+  - Goal: Learn how Express "Error Handling Middleware" works to remove repetitive `try/catch` code.
+
+- [ ] **Task 9: Authentication basics (optional but great!)**
+  - Add a hardcoded "secret token" requirement to the `DELETE` route so only authorized users can delete a ticket.
+
+- [ ] **Task 10: The README.md & GitHub**
+  - Write a professional `README.md` explaining what the project is, what tech stack it uses, and how to run it.
+  - Push the final polished version to GitHub.
 
 *Happy Coding!* 🚀
