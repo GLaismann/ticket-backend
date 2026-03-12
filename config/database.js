@@ -1,15 +1,12 @@
 const sqlite3 = require('sqlite3');
 
 
-const db = new sqlite3.Database('./ticket-database.db', sqlite3.OPEN_READWRITE, (err) => {
-    if (err && err.code === "SQLITE_CANTOPEN") {
-        console.log("Trying to create a Database... ");
-        createDatabase();
-        return;
-    } else if (err) {
+const db = new sqlite3.Database('./ticket-database.db', (err) => {
+    if (err) {
         console.log("Getting error " + err);
         return;
     }
+    createTables(db);
     console.log("Connected to the SQLite database.")
 
 });
@@ -25,20 +22,22 @@ function createDatabase() {
     })
     createTables(newdb);
     console.log("Database Created Sucessfuly");
+    const db = newdb
+    return db;
 }
 
-function createTables(newdb) {
+function createTables(db) {
     console.log("Creating a new Table");
 
-    newdb.serialize(() => {
-        newdb.run(`
+    db.serialize(() => {
+        db.run(`
             CREATE TABLE IF NOT EXISTS tickets(
         ticket_id INTEGER PRIMARY KEY,
         ticket_name TEXT NOT NULL,
         ticket_status TEXT NOT NULL
         )    
         `);
-        newdb.run(`
+        db.run(`
             INSERT INTO tickets(ticket_name, ticket_status)
             VALUES (?, ?)`, ['Printer broken', 'Open']);
     });
