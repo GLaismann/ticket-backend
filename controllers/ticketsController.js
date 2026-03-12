@@ -1,5 +1,5 @@
 const servicedb = require('../config/database');
-const db = servicedb.db;
+
 
 const getAllTickets = async (req, res) => {
     try {

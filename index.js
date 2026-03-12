@@ -1,8 +1,11 @@
 
-const express = require('express')
-const app = express()
+const express = require('express');
+require('dotenv').config();
+const app = express();
 const ticketsRoutes = require('./routes/ticketsRoutes');
-const port = 3000
+const port = process.env.PORT;
+
+
 
 // Tradutor do express para json
 app.use(express.json());
