@@ -16,7 +16,7 @@ Here is your to-do list for when you get home! We are transitioning from the "fa
 
 To get a job as a Junior Developer, your API needs to show that you understand real-world architectural patterns and security. 
 
-- [ ] **Task 6: Environment Variables (`dotenv`)**
+- [x] **Task 6: Environment Variables (`dotenv`)**
   - Install the `dotenv` package.
   - Move your `port` number and database file name into a `.env` file so they aren't hardcoded.
 

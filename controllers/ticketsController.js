@@ -1,4 +1,5 @@
 const servicedb = require('../config/database');
+const db = servicedb.db;
 
 
 const getAllTickets = async (req, res) => {
@@ -21,7 +22,8 @@ const postNewTicket = async (req, res) => {
 
         res.send("Ticket created sucessfuly \n Ticket name: " + newTicketName + "\nTicket Status: " + newTicketStatus);
     } catch (error) {
-        return res.send(error)
+        console.log(error);
+        return res.send(error);
     }
 
 }

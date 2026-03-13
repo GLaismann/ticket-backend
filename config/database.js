@@ -1,7 +1,8 @@
 const sqlite3 = require('sqlite3');
+const databasePath = process.env.DATABASE_PATH;
 
 
-const db = new sqlite3.Database('./ticket-database.db', (err) => {
+const db = new sqlite3.Database(databasePath, (err) => {
     if (err) {
         console.log("Getting error " + err);
         return;
